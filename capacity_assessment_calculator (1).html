@@ -1,0 +1,300 @@
+<style>
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+.step-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.element-header{display:flex;align-items:center;gap:10px;margin-bottom:.75rem}
+.element-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+.element-title{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+.element-subtitle{font-size:13px;color:var(--color-text-secondary);margin-top:2px}
+.probe-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;margin:.75rem 0;font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.probe-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.4rem}
+.btn-row{display:flex;gap:8px;margin-top:.75rem}
+.btn-pass{background:var(--color-background-success);border:0.5px solid var(--color-border-success);color:var(--color-text-success);border-radius:var(--border-radius-md);padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer;flex:1}
+.btn-fail{background:var(--color-background-danger);border:0.5px solid var(--color-border-danger);color:var(--color-text-danger);border-radius:var(--border-radius-md);padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer;flex:1}
+.btn-pass:hover{opacity:.85}.btn-fail:hover{opacity:.85}
+.result-card{border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.result-pass{background:var(--color-background-success);border:0.5px solid var(--color-border-success)}
+.result-fail{background:var(--color-background-danger);border:0.5px solid var(--color-border-danger)}
+.result-title{font-size:16px;font-weight:500;margin-bottom:.4rem}
+.result-pass .result-title{color:var(--color-text-success)}
+.result-fail .result-title{color:var(--color-text-danger)}
+.result-body{font-size:13px;line-height:1.6}
+.result-pass .result-body{color:var(--color-text-success)}
+.result-fail .result-body{color:var(--color-text-danger)}
+.progress-row{display:flex;gap:6px;margin-bottom:1.25rem}
+.pip{height:4px;flex:1;border-radius:2px;background:var(--color-border-tertiary);transition:background .3s}
+.pip.done{background:var(--color-text-success)}
+.pip.fail{background:var(--color-text-danger)}
+.pip.active{background:var(--color-text-info)}
+.principle-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-top:1rem}
+.principle{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.6rem .75rem}
+.principle-title{font-size:12px;font-weight:500;color:var(--color-text-primary);margin-bottom:2px}
+.principle-body{font-size:11px;color:var(--color-text-secondary);line-height:1.4}
+.flag-row{margin-top:.6rem;display:flex;align-items:flex-start;gap:6px;font-size:12px;color:var(--color-text-secondary);line-height:1.4}
+.warn-tag{background:var(--color-background-warning);color:var(--color-text-warning);border-radius:4px;padding:1px 6px;font-size:11px;font-weight:500;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.doc-box{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:.75rem 1rem;margin-top:.75rem;font-size:12px;color:var(--color-text-secondary);line-height:1.6}
+.doc-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem}
+.reset-btn{background:transparent;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 16px;font-size:13px;color:var(--color-text-secondary);cursor:pointer;margin-top:.5rem}
+.reset-btn:hover{background:var(--color-background-secondary)}
+.decision-tag{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:4px;margin-bottom:.5rem}
+.section-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.04em;margin:.25rem 0 .5rem}
+</style>
+
+<h2 class="sr-only">Decision-making capacity assessment calculator — walks through the four-element framework and produces a documented outcome.</h2>
+
+<div id="app" style="padding:.5rem 0">
+
+<div id="intro-section">
+  <div style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1rem;line-height:1.6">
+    Works through the four-element framework under the Guardianship and Administration Act 1990 (WA). Capacity is presumed present — the burden is on demonstrating absence.
+  </div>
+  <div class="principle-row" style="margin-bottom:1.25rem">
+    <div class="principle"><div class="principle-title">Presumed present</div><div class="principle-body">Burden lies with demonstrating absence, not presence</div></div>
+    <div class="principle"><div class="principle-title">Decision-specific</div><div class="principle-body">One decision, one assessment — not global</div></div>
+    <div class="principle"><div class="principle-title">Time-specific</div><div class="principle-body">Reassess when illness, pain or medication changes</div></div>
+    <div class="principle"><div class="principle-title">Diagnosis ≠ incapacity</div><div class="principle-body">Assess the individual, not the condition</div></div>
+  </div>
+  <div style="margin-bottom:1rem">
+    <div class="section-label">Decision being assessed</div>
+    <input id="decision-input" type="text" placeholder="e.g. Completion of an Advance Health Directive" style="width:100%;box-sizing:border-box">
+  </div>
+  <div style="margin-bottom:1.25rem">
+    <div class="section-label">Patient name / identifier (optional)</div>
+    <input id="patient-input" type="text" placeholder="e.g. Mr Smith, DOB 01/01/1945" style="width:100%;box-sizing:border-box">
+  </div>
+  <button class="btn-pass" style="flex:none;width:100%" onclick="startAssessment()">Begin assessment</button>
+</div>
+
+<div id="assessment-section" style="display:none">
+  <div class="progress-row" id="progress-row">
+    <div class="pip active" id="pip-0"></div>
+    <div class="pip" id="pip-1"></div>
+    <div class="pip" id="pip-2"></div>
+    <div class="pip" id="pip-3"></div>
+  </div>
+  <div id="element-display"></div>
+</div>
+
+<div id="result-section" style="display:none"></div>
+
+</div>
+
+<script>
+const elements=[
+  {
+    num:'①',
+    color:'#534AB7',
+    bg:'#EEEDFE',
+    key:'understand',
+    title:'Understand',
+    subtitle:'Can the patient understand the information relevant to the decision?',
+    probe:'Ask the patient to explain the decision back in their own words — what it involves, what it would mean for their care, and what the alternatives are.',
+    example:'For an AHD: "Can you explain to me in your own words what an Advance Health Directive is and what it would mean for you?"',
+    failNote:'Inability to understand — even after clear explanation — suggests this element is not met. Consider whether a communication barrier (language, hearing, literacy) is a treatable cause before concluding failure.',
+    flagLabel:'Red flag',
+    flagText:'Fixed false beliefs about the decision that cannot be corrected by information may indicate delusion rather than lack of understanding.'
+  },
+  {
+    num:'②',
+    color:'#0F6E56',
+    bg:'#E1F5EE',
+    key:'retain',
+    title:'Retain',
+    subtitle:'Can the patient hold the information long enough to make a decision?',
+    probe:'Step out briefly, then return and ask the patient to recall the key points discussed. Short-term retention — not long-term memory — is what is being tested.',
+    example:'For an AHD: "We spoke a moment ago about the Advance Health Directive. Can you remind me what the key points were?"',
+    failNote:'Retention does not have to be perfect — it needs to be sufficient for the decision at hand. A patient who retains the core substance but forgets minor details may still pass this element.',
+    flagLabel:'Note',
+    flagText:'Fluctuating retention (passes in the morning, fails in the afternoon) suggests time-specific incapacity — reassess at the optimal time of day.'
+  },
+  {
+    num:'③',
+    color:'#0F6E56',
+    bg:'#E1F5EE',
+    key:'weigh',
+    title:'Weigh up',
+    subtitle:'Can the patient reason through the decision and appreciate its consequences?',
+    probe:'Ask the patient to walk through their reasoning — what factors they are considering, what they think might happen under each option, and why they are leaning the way they are.',
+    example:'For an AHD: "What do you think might happen if you don\'t complete one, given what you\'ve watched your wife go through?"',
+    failNote:'An unwise or unconventional decision does not indicate failure here — the test is the reasoning process, not the outcome. A patient who says "I\'ve heard everything and I still don\'t want one" can be fully capacitous.',
+    flagLabel:'Red flag',
+    flagText:'Reasoning driven by depression, mania, or psychotic beliefs ("nothing matters", "I\'m already dead") may indicate the illness is distorting the weighing process even when understanding and retention are intact.'
+  },
+  {
+    num:'④',
+    color:'#185FA5',
+    bg:'#E6F1FB',
+    key:'communicate',
+    title:'Communicate',
+    subtitle:'Can the patient express a decision by any means?',
+    probe:'Ask the patient to state their decision. This is deliberately broad — verbal, written, gesture, eye movement, or any consistent non-verbal signal all count.',
+    example:'"So, having thought it through — what have you decided? Would you like to proceed with the Advance Health Directive?"',
+    failNote:'If the patient is unable to communicate by any means, this element is not met. Explore whether an assistive communication device, speech pathologist, or interpreter would help before concluding failure.',
+    flagLabel:'Note',
+    flagText:'Fluctuating communication (e.g. due to delirium) may mean capacity is time-specific — reassess when the patient is most alert.'
+  }
+];
+
+let current=0;
+let results=[];
+let decisionText='';
+let patientText='';
+
+function startAssessment(){
+  decisionText=document.getElementById('decision-input').value.trim()||'decision not specified';
+  patientText=document.getElementById('patient-input').value.trim();
+  document.getElementById('intro-section').style.display='none';
+  document.getElementById('assessment-section').style.display='block';
+  current=0;results=[];
+  showElement(0);
+}
+
+function showElement(i){
+  const el=elements[i];
+  updatePips(i);
+  const html=`
+    <div class="step-card">
+      <div class="element-header">
+        <div class="element-num" style="background:${el.bg};color:${el.color}">${el.num}</div>
+        <div><div class="element-title">${el.title}</div><div class="element-subtitle">${el.subtitle}</div></div>
+      </div>
+      <div class="probe-box">
+        <div class="probe-label">Clinical probe</div>
+        ${el.probe}
+      </div>
+      <div class="probe-box" style="margin-top:.5rem">
+        <div class="probe-label">Example question</div>
+        <em>${el.example}</em>
+      </div>
+      <div class="flag-row"><span class="warn-tag">${el.flagLabel}</span>${el.flagText}</div>
+      <div class="btn-row">
+        <button class="btn-fail" onclick="record(false)"><i class="ti ti-x" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>Not met</button>
+        <button class="btn-pass" onclick="record(true)"><i class="ti ti-check" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>Met</button>
+      </div>
+    </div>
+  `;
+  document.getElementById('element-display').innerHTML=html;
+}
+
+function record(passed){
+  results.push({element:elements[current],passed});
+  const pip=document.getElementById('pip-'+current);
+  pip.classList.remove('active');
+  pip.classList.add(passed?'done':'fail');
+  if(!passed){
+    showResult(false,current);
+    return;
+  }
+  current++;
+  if(current===4){
+    showResult(true,-1);
+  } else {
+    const nextPip=document.getElementById('pip-'+current);
+    if(nextPip) nextPip.classList.add('active');
+    showElement(current);
+  }
+}
+
+function updatePips(active){
+  for(let i=0;i<4;i++){
+    const p=document.getElementById('pip-'+i);
+    if(!p) return;
+    p.classList.remove('active');
+    if(i===active) p.classList.add('active');
+  }
+}
+
+function showResult(passed,failedAt){
+  document.getElementById('assessment-section').style.display='none';
+  const rs=document.getElementById('result-section');
+  rs.style.display='block';
+
+  const now=new Date();
+  const dateStr=now.toLocaleDateString('en-AU',{day:'2-digit',month:'long',year:'numeric'});
+  const timeStr=now.toLocaleTimeString('en-AU',{hour:'2-digit',minute:'2-digit'});
+
+  const passedElements=results.filter(r=>r.passed).map(r=>r.element.title);
+  const failedElement=failedAt>=0?elements[failedAt]:null;
+
+  const docLines=results.map(r=>`${r.element.title}: ${r.passed?'Met':'Not met'}`).join('\n');
+
+  if(passed){
+    rs.innerHTML=`
+      <div class="result-card result-pass">
+        <div class="decision-tag" style="background:#C0DD97;color:#27500A">Capacity confirmed</div>
+        <div class="result-title">All four elements met</div>
+        <div class="result-body">This patient has demonstrated decision-making capacity for: <strong>${decisionText}</strong>. Proceed with the patient's own decision.</div>
+      </div>
+      <div class="step-card">
+        <div class="section-label">Documentation record</div>
+        <div class="doc-box">
+          <div class="doc-label">Clinical note — capacity assessment</div>
+          ${patientText?`<strong>Patient:</strong> ${patientText}<br>`:''}
+          <strong>Date/time:</strong> ${dateStr}, ${timeStr}<br>
+          <strong>Decision assessed:</strong> ${decisionText}<br><br>
+          <strong>Four-element assessment:</strong><br>
+          ${docLines.replace(/\n/g,'<br>')}<br><br>
+          <strong>Conclusion:</strong> Capacity confirmed for this decision at this time. Patient advised to proceed. Clinician signature: ___________________
+        </div>
+        <button class="reset-btn" onclick="copyDoc(this,'capacity-doc-pass')"><i class="ti ti-copy" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>Copy note</button>
+        <span id="capacity-doc-pass" style="display:none">${patientText?`Patient: ${patientText}\n`:''}Date/time: ${dateStr}, ${timeStr}\nDecision assessed: ${decisionText}\n\nFour-element assessment:\n${docLines}\n\nConclusion: Capacity confirmed for this decision at this time. Patient advised to proceed.\nClinician signature: ___________________</span>
+      </div>
+      <div class="principle-row">
+        <div class="principle"><div class="principle-title">Reassess if circumstances change</div><div class="principle-body">Illness, medication, pain or time of day can all affect capacity</div></div>
+        <div class="principle"><div class="principle-title">Decision-specific finding</div><div class="principle-body">Capacity for this decision does not imply capacity for others</div></div>
+      </div>
+      <button class="reset-btn" onclick="reset()" style="width:100%;margin-top:1rem"><i class="ti ti-refresh" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>New assessment</button>
+    `;
+  } else {
+    rs.innerHTML=`
+      <div class="result-card result-fail">
+        <div class="decision-tag" style="background:#F7C1C1;color:#791F1F">Capacity not confirmed</div>
+        <div class="result-title">Element not met: ${failedElement.title}</div>
+        <div class="result-body">The patient did not meet the <strong>${failedElement.title}</strong> element for: <strong>${decisionText}</strong>. Apply the WA hierarchy of decision-makers.</div>
+      </div>
+      <div class="step-card">
+        <div class="section-label">Next steps</div>
+        <div class="flag-row" style="margin-top:0"><span class="warn-tag">Consider</span>Whether this is time-specific — reassess when the patient is most alert, in less pain, or with adjusted medication</div>
+        <div class="flag-row"><span class="warn-tag">Consider</span>Whether a communication barrier, language issue, or sensory impairment is a treatable cause</div>
+        <div class="flag-row"><span class="warn-tag">Consider</span>Seeking a second opinion before concluding incapacity if there is genuine doubt</div>
+        <div class="flag-row"><span class="warn-tag">Apply</span>WA hierarchy of treatment decision-makers — AHD → enduring guardian → guardian with authority → spouse → adult children → parents → siblings → SAT</div>
+      </div>
+      <div class="step-card">
+        <div class="section-label">Documentation record</div>
+        <div class="doc-box">
+          <div class="doc-label">Clinical note — capacity assessment</div>
+          ${patientText?`<strong>Patient:</strong> ${patientText}<br>`:''}
+          <strong>Date/time:</strong> ${dateStr}, ${timeStr}<br>
+          <strong>Decision assessed:</strong> ${decisionText}<br><br>
+          <strong>Four-element assessment:</strong><br>
+          ${docLines.replace(/\n/g,'<br>')}<br><br>
+          <strong>Conclusion:</strong> Capacity not confirmed for this decision at this time. ${failedElement.title} element not satisfied. WA hierarchy applied. Second opinion sought: [ ]. Clinician signature: ___________________
+        </div>
+        <button class="reset-btn" onclick="copyDoc(this,'capacity-doc-fail')"><i class="ti ti-copy" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>Copy note</button>
+        <span id="capacity-doc-fail" style="display:none">${patientText?`Patient: ${patientText}\n`:''}Date/time: ${dateStr}, ${timeStr}\nDecision assessed: ${decisionText}\n\nFour-element assessment:\n${docLines}\n\nConclusion: Capacity not confirmed for this decision at this time. ${failedElement.title} element not satisfied. WA hierarchy applied. Second opinion sought: [ ].\nClinician signature: ___________________</span>
+      </div>
+      <button class="reset-btn" onclick="reset()" style="width:100%;margin-top:.5rem"><i class="ti ti-refresh" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>New assessment</button>
+    `;
+  }
+}
+
+function copyDoc(btn,id){
+  const text=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied';
+    setTimeout(()=>{btn.innerHTML='<i class="ti ti-copy" aria-hidden="true" style="font-size:14px;margin-right:4px"></i>Copy note';},2000);
+  });
+}
+
+function reset(){
+  current=0;results=[];decisionText='';patientText='';
+  document.getElementById('decision-input').value='';
+  document.getElementById('patient-input').value='';
+  document.getElementById('result-section').style.display='none';
+  document.getElementById('assessment-section').style.display='none';
+  document.getElementById('intro-section').style.display='block';
+  for(let i=0;i<4;i++){
+    const p=document.getElementById('pip-'+i);
+    if(p){p.className='pip';if(i===0)p.classList.add('active');}
+  }
+}
+</script>
